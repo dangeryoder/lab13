@@ -13,7 +13,6 @@
 
 from Tkinter import *
 root = Tk()
-
 drawpad = Canvas(root, width=800,height=600, background='white')
 player = drawpad.create_oval(390,580,410,600, fill="red")
 
@@ -50,14 +49,28 @@ class MyApp:
        	    self.left.bind("<Button-1>", self.leftClicked)
        	    self.right.bind("<Button-1>", self.rightClicked)
        	    drawpad.pack(side=BOTTOM)
+       	    self.animate()
 	
 	def animate(self):
 	    global drawpad
 	    global player
 	    global enemy1
-	    global enemy2
-	    global enemy3
-	   
+	    x1, y1, x2, y2 = drawpad.coords(enemy1)
+            if x1 > 800: 
+                drawpad.move(enemy1,-840,10)
+	    drawpad.move(enemy1,5,0)
+            global enemy2
+            x1, y1, x2, y2 = drawpad.coords(enemy2)
+            if x1 > 800: 
+                drawpad.move(enemy2,-840,10)
+            drawpad.move(enemy2,10,0)
+            global enemy3
+            x1, y1, x2, y2 = drawpad.coords(enemy3)
+            if x1 > 800: 
+                drawpad.move(enemy3,-840,10)
+	    drawpad.move(enemy3,20,0)
+	    drawpad.after(10, self.animate)
+	    
 	def upClicked(self, event):   
 	   global oval
 	   global player
@@ -77,6 +90,6 @@ class MyApp:
 	    global oval
 	    global player
 	    drawpad.move(player,20,0)
-	    
+
 app = MyApp(root)
 root.mainloop()
